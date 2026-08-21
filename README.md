@@ -21,6 +21,3 @@ A Pong clone developed in C++ using SFML.
 - CMake
 - Linux
 
-## Build and Run
-
-[Instructions here]
