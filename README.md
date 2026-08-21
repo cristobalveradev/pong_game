@@ -12,7 +12,7 @@ A Pong clone developed in C++ using SFML.
 
 ## Demo
 
-[GIF or screenshot here]
+![Pong Game Demo](media/demo.gif)
 
 ## Technologies
 
