@@ -79,14 +79,14 @@ private:
 int main() {
     constexpr unsigned int WINDOW_WIDTH = 800;
     constexpr unsigned int WINDOW_HEIGHT = 600;
-
+    
     sf::RenderWindow window(
         sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}),
         "Pong - C++"
     );
-
+    
     window.setFramerateLimit(60);
-
+    
     Paddle player(
         30.0f,
         WINDOW_HEIGHT / 2.0f - 50.0f,
@@ -94,7 +94,7 @@ int main() {
         100.0f,
         400.0f
     );
-
+    
     Paddle enemy(
         WINDOW_WIDTH - 50.0f,
         WINDOW_HEIGHT / 2.0f - 50.0f,
@@ -110,8 +110,29 @@ int main() {
         300.0f,
         200.0f
     );
+    
+    int playerScore = 0;
+    int enemyScore = 0;
 
     sf::Clock clock;
+
+
+    sf::Font font;
+
+    if (!font.openFromFile("assets/font.ttf")) {
+        return 1;
+    }
+
+    sf::Text playerScoreText(font);
+    sf::Text enemyScoreText(font);
+
+    playerScoreText.setCharacterSize(40);
+    enemyScoreText.setCharacterSize(40);
+
+    playerScoreText.setPosition(sf::Vector2f(300.0f, 30.0f));
+    enemyScoreText.setPosition(sf::Vector2f(480.0f, 30.0f));
+
+
 
     while (window.isOpen()) {
         float deltaTime = clock.restart().asSeconds();
@@ -165,6 +186,7 @@ int main() {
         ballBounds = ball.getBounds();
 
         if (ballBounds.position.x < 0.0f) {
+            enemyScore++;
             ball.reset(
                 WINDOW_WIDTH / 2.0f - 10.0f,
                 WINDOW_HEIGHT / 2.0f - 10.0f,
@@ -174,6 +196,7 @@ int main() {
         }
 
         if (ballBounds.position.x + ballBounds.size.x > WINDOW_WIDTH) {
+            playerScore++;
             ball.reset(
                 WINDOW_WIDTH / 2.0f - 10.0f,
                 WINDOW_HEIGHT / 2.0f - 10.0f,
@@ -182,11 +205,18 @@ int main() {
             );
         }
 
+        playerScoreText.setString(std::to_string(playerScore));
+        enemyScoreText.setString(std::to_string(enemyScore));
+        
         window.clear();
+
+
 
         player.draw(window);
         enemy.draw(window);
         ball.draw(window);
+        window.draw(playerScoreText);
+        window.draw(enemyScoreText);
 
         window.display();
     }

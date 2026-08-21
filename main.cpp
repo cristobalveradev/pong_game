@@ -2,6 +2,9 @@
 
 int main()
 {
+
+   
+
     sf::RenderWindow window(
         sf::VideoMode({800, 600}),
         "Mi primer programa C++"
@@ -18,6 +21,7 @@ int main()
         }
 
         window.clear();
+
 
         sf::RectangleShape rectangle(sf::Vector2f(100.0f, 50.0f));
         rectangle.setPosition(sf::Vector2f(350.0f, 275.0f));
